@@ -98,15 +98,16 @@ var printAddonsList = func(cc *config.ClusterConfig) {
 
 	var tData [][]string
 	table := tablewriter.NewWriter(os.Stdout)
-	table.SetHeader([]string{"Addon Name", "Profile", "Status"})
+	table.SetHeader([]string{"Addon Name", "Profile", "Status", "Maintainer"})
 	table.SetAutoFormatHeaders(true)
 	table.SetBorders(tablewriter.Border{Left: true, Top: true, Right: true, Bottom: true})
 	table.SetCenterSeparator("|")
 
 	for _, addonName := range addonNames {
 		addonBundle := assets.Addons[addonName]
+		// maintainer := assets.Addons[addonName]
 		enabled := addonBundle.IsEnabled(cc)
-		tData = append(tData, []string{addonName, cc.Name, fmt.Sprintf("%s %s", stringFromStatus(enabled), iconFromStatus(enabled))})
+		tData = append(tData, []string{addonName, cc.Name, fmt.Sprintf("%s %s", stringFromStatus(enabled), iconFromStatus(enabled)), ""})
 	}
 
 	table.AppendBulk(tData)
